@@ -30,6 +30,8 @@ switch class(obj)
         return
 end
 
+%Find static gain
+K=zpk(obj).k;
 % Find and remove imaginary roots
 im_p=proots(find(real(proots)==0));
 proots(find(real(proots)==0))=[];
@@ -100,7 +102,7 @@ mag=mag+sum(mag_imz,1);
 end
 
 % Account for static gain
-mag=mag+mag2db(prod(abs(zroots))/prod(abs(proots)));
+mag=mag+mag2db(prod(abs(zroots))/prod(abs(proots)))+mag2db(K);
 
 
 % Calculate phase
